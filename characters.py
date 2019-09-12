@@ -1,3 +1,8 @@
+from __future__ import annotations
+
+import random
+
+
 class CharacterBase:
     def __init__(self, max_health: int,
                  level: int,
@@ -14,9 +19,14 @@ class CharacterBase:
         self.gold = gold
         self.xp = xp
 
-    def attack(self, other):
-        return True
+    def attack(self, other: CharacterBase):
+        return self.attack_roll() >= other.defence_roll()
 
+    def attack_roll(self):
+        return self.att_str * random.random()
+
+    def defence_roll(self):
+        return self.def_str * random.random()
 
 
 class Player(CharacterBase):

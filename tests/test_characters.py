@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from characters import CharacterBase, Player, MonsterFighter
 
 
@@ -17,15 +19,33 @@ def test_player_properties():
     assert hasattr(player, 'xp')
     assert hasattr(player, 'gold')
 
+
 def test_monster_properties():
     pass
 
 
-def test_attack_hit():
+@patch.object(CharacterBase, 'attack_roll')
+@patch.object(CharacterBase, 'defence_roll')
+def test_attack_hit(a, d):
     attacker = Player()
     defender = MonsterFighter(100, 1, 10, 10, 0, 0)
-    result = attacker.attack(defender)
-    assert result
+    attacker.attack_roll.return_value = 9
+    defender.defence_roll.return_value = 2
+    hit = attacker.attack(defender)
+    assert hit
+    attacker.attack_roll.return_value = 2
+    defender.defence_roll.return_value = 2
+    hit = attacker.attack(defender)
+    assert hit
+
 
 def test_attack_miss():
-    pass
+    @patch.object(CharacterBase, 'attack_roll')
+    @patch.object(CharacterBase, 'defence_roll')
+    def test_attack_mi(a, d):
+        attacker = Player()
+        defender = MonsterFighter(100, 1, 10, 10, 0, 0)
+        attacker.attack_roll.return_value = 2
+        defender.defence_roll.return_value = 9
+        hit = attacker.attack(defender)
+        assert not hit
