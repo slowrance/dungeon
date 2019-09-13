@@ -4,7 +4,7 @@ from characters import CharacterBase, Player, MonsterFighter
 
 
 def test_base_character_properties():
-    cb = CharacterBase(100, 1, 10, 10, 0, 2)
+    cb = CharacterBase()
     assert hasattr(cb, 'max_health')
     assert hasattr(cb, 'curr_health')
     assert hasattr(cb, 'level')
@@ -15,7 +15,7 @@ def test_base_character_properties():
 
 
 def test_player_properties():
-    player = Player(100, 1, 10, 10, 0, 0)
+    player = Player()
     assert hasattr(player, 'xp')
     assert hasattr(player, 'gold')
 
@@ -28,7 +28,7 @@ def test_monster_properties():
 @patch.object(CharacterBase, 'defence_roll')
 def test_attack_hit(a, d):
     attacker = Player()
-    defender = MonsterFighter(100, 1, 10, 10, 0, 0)
+    defender = MonsterFighter()
     attacker.attack_roll.return_value = 9
     defender.defence_roll.return_value = 2
     hit = attacker.attack(defender)
@@ -44,8 +44,23 @@ def test_attack_miss():
     @patch.object(CharacterBase, 'defence_roll')
     def test_attack_mi(a, d):
         attacker = Player()
-        defender = MonsterFighter(100, 1, 10, 10, 0, 0)
+        defender = MonsterFighter()
         attacker.attack_roll.return_value = 2
         defender.defence_roll.return_value = 9
         hit = attacker.attack(defender)
         assert not hit
+
+def test_deal_damage():
+    attacker = Player()
+    attacker.damage = 5
+    defender = MonsterFighter()
+    defender.max_health = 100
+    defender.curr_health = 100
+    assert defender.curr_health == 100
+    attacker.deal_damage(defender)
+    assert defender.curr_health < 100
+
+
+def test_player_kill_monster():
+    player = Player()
+    pass

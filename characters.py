@@ -4,12 +4,12 @@ import random
 
 
 class CharacterBase:
-    def __init__(self, max_health: int,
-                 level: int,
-                 attack: float,
-                 defense: float,
-                 gold: int,
-                 xp: int):
+    def __init__(self, max_health: int = 100,
+                 level: int = 1,
+                 attack: float = 10,
+                 defense: float = 10,
+                 gold: int = 0,
+                 xp: int = 0):
 
         self.curr_health = max_health
         self.max_health = max_health
@@ -28,11 +28,15 @@ class CharacterBase:
     def defence_roll(self):
         return self.def_str * random.random()
 
+    def deal_damage(self, other):
+        other.curr_health -= random.randint(1, self.damage)
+
 
 class Player(CharacterBase):
-    def __init__(self, health=100, level=1, attack=10, defense=10, gold=0, xp=0):
-        super(Player, self).__init__(health, level, attack, defense, gold, xp)
+    def __init__(self):
+        super(Player, self).__init__()
+
 
 class MonsterFighter(CharacterBase):
-    def __init__(self, health, level, attack, defense, gold, xp):
-        super(MonsterFighter, self).__init__(health, level, attack, defense, gold, xp)
+    def __init__(self):
+        super(MonsterFighter, self).__init__()
