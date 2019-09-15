@@ -30,6 +30,9 @@ class CharacterBase:
 
     def deal_damage(self, other):
         other.curr_health -= random.randint(1, self.damage)
+        if other.curr_health <= 0:
+            self.xp += other.xp
+            self.gold += other.gold
 
 
 class Player(CharacterBase):

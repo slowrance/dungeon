@@ -20,10 +20,6 @@ def test_player_properties():
     assert hasattr(player, 'gold')
 
 
-def test_monster_properties():
-    pass
-
-
 @patch.object(CharacterBase, 'attack_roll')
 @patch.object(CharacterBase, 'defence_roll')
 def test_attack_hit(a, d):
@@ -50,6 +46,7 @@ def test_attack_miss():
         hit = attacker.attack(defender)
         assert not hit
 
+
 def test_deal_damage():
     attacker = Player()
     attacker.damage = 5
@@ -63,4 +60,15 @@ def test_deal_damage():
 
 def test_player_kill_monster():
     player = Player()
-    pass
+    player.xp = 0
+    player.xp = 0
+    player.damage = 5
+    monster = MonsterFighter()
+    monster.curr_health = 1
+    monster.xp = 10
+    monster.gold = 10
+    player.deal_damage(monster)
+    assert player.xp == 10
+    assert player.gold == 10
+
+
