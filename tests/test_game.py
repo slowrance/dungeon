@@ -9,6 +9,11 @@ def test_new_game():
     game = Game()
     assert game.turns == 0
 
+def test_locations(new_game):
+    game = new_game
+    assert game.locations == ['forest', 'town', 'shop']
+
+
 def test_look_around_event():
     pass
 

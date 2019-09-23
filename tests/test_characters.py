@@ -1,17 +1,19 @@
 from unittest.mock import patch
 
 from characters import CharacterBase, Player, MonsterFighter
+from tests.conftest import generic_characters
 
 
-def test_base_character_properties():
-    cb = CharacterBase()
-    assert hasattr(cb, 'max_health')
-    assert hasattr(cb, 'curr_health')
-    assert hasattr(cb, 'level')
-    assert hasattr(cb, 'att_str')
-    assert hasattr(cb, 'def_str')
-    assert hasattr(cb, 'gold')
-    assert hasattr(cb, 'xp')
+
+def test_base_character_properties(generic_characters):
+    a, _ = generic_characters
+    assert hasattr(a, 'max_health')
+    assert hasattr(a, 'curr_health')
+    assert hasattr(a, 'level')
+    assert hasattr(a, 'att_str')
+    assert hasattr(a, 'def_str')
+    assert hasattr(a, 'gold')
+    assert hasattr(a, 'xp')
 
 
 def test_player_properties():
@@ -47,10 +49,9 @@ def test_attack_miss():
         assert not hit
 
 
-def test_deal_damage():
-    attacker = Player()
+def test_deal_damage(generic_characters):
+    attacker, defender = generic_characters
     attacker.damage = 5
-    defender = MonsterFighter()
     defender.max_health = 100
     defender.curr_health = 100
     assert defender.curr_health == 100

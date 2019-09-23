@@ -3,6 +3,7 @@ class Game:
         self.turns = 0
         self.kills = 0
         self.game_end = False
+        self.locations = self.generate_locations()
 
     def start_game(self):
         while not self.game_end:
