@@ -4,7 +4,6 @@ from characters import CharacterBase, Player, MonsterFighter
 from tests.conftest import generic_characters
 
 
-
 def test_base_character_properties(generic_characters):
     a, _ = generic_characters
     assert hasattr(a, 'max_health')
@@ -59,17 +58,14 @@ def test_deal_damage(generic_characters):
     assert defender.curr_health < 100
 
 
-def test_player_kill_monster():
-    player = Player()
+def test_player_kill_monster(generic_characters):
+    player, monster = generic_characters
     player.xp = 0
     player.xp = 0
     player.damage = 5
-    monster = MonsterFighter()
     monster.curr_health = 1
     monster.xp = 10
     monster.gold = 10
     player.deal_damage(monster)
     assert player.xp == 10
     assert player.gold == 10
-
-

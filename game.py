@@ -11,3 +11,6 @@ class Game:
 
     def get_action(self, location):
         pass
+
+    def generate_locations(self):
+        return ['forest', 'town', 'shop']

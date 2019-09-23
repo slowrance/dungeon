@@ -1,9 +1,10 @@
 from game import Game
+from locations import Location
 from characters import Player
 
 
-def test_new_game():
-    game = Game()
+def test_new_game(new_game):
+    game = new_game
     game.turns = 2
     assert game.turns > 0
     game = Game()
@@ -11,6 +12,7 @@ def test_new_game():
 
 def test_locations(new_game):
     game = new_game
+    game.locations.append(locations.get_locations)
     assert game.locations == ['forest', 'town', 'shop']
 
 
